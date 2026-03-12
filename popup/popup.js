@@ -1,11 +1,28 @@
 import { getPublicIPv4 } from "../services/ipService.js";
-import { saveIPRecord } from "../storage/storageService.js";
+import { saveIPRecord, getLastCapturedIP } from "../storage/storageService.js";
 import { getCurrentTimestamp } from "../utils/timeUtils.js";
 
 const captureBtn = document.getElementById("captureBtn");
 const resultDiv = document.getElementById("result");
 
-captureBtn.addEventListener("click", async () => {
+// Load stored IP when popup opens
+document.addEventListener("DOMContentLoaded", function () {
+    getLastCapturedIP(function(record) {
+        if (record) {
+            resultDiv.innerHTML =
+            `
+            <b>Last Captured IPv4:</b> ${record.ip}<br>
+            <b>Timestamp:</b> ${record.timestamp}
+            `;
+        } else {
+            resultDiv.textContent = "No IPv4 captured yet.";
+        }
+    });
+});
+
+
+// Capture button
+captureBtn.addEventListener("click", async function () {
     resultDiv.textContent = "Capturing...";
     try {
         const ip = await getPublicIPv4();
@@ -14,7 +31,7 @@ captureBtn.addEventListener("click", async () => {
             ip: ip,
             timestamp: timestamp
         };
-        await saveIPRecord(record);
+        saveIPRecord(record);
         resultDiv.innerHTML =
         `
         <b>IPv4:</b> ${ip}<br>
