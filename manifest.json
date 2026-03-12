@@ -1,18 +1,27 @@
 {
   "manifest_version": 3,
-  "name": "AmiLeaked Skeleton",
+  "name": "AmiLeaked",
   "version": "0.1.0",
-  "description": "Base Chrome extension skeleton for the AmiLeaked project.",
+  "description": "Network leak detector that runs in the background while you browse",
   "action": {
     "default_popup": "popup/popup.html",
     "default_title": "AmiLeaked"
   },
+
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "permissions": [],
+
+  "permissions": [
+    "storage"
+  ],
+
+  "host_permissions": [
+    "https://api.ipify.org/*"
+  ],
+
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
