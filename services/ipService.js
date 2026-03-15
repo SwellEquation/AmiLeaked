@@ -1,5 +1,24 @@
 export async function getPublicIPv4() {
-    const response = await fetch("https://api.ipify.org?format=json");
-    const data = await response.json();
-    return data.ip;
+    
+    // Try primary fetcher
+    try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        return data.ip;
+    
+    } catch (error) {
+        console.warn("Primary IP fetch failed, trying fallback...", error);
+        
+        // Primary failed, try Amazon backup
+        try {
+            const response = await fetch("https://checkip.amazonaws.com");
+            const ip = await response.text();
+            return ip.trim(); // .trim() removes any whitespace/newline Amazon adds
+        
+        } catch (fallbackError) {
+            // Both failed, throw error up to caller
+            console.error("Fallback IP fetch also failed.", fallbackError);
+            throw fallbackError;
+        }
+    }
 }
