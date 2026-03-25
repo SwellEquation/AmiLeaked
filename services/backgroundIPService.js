@@ -1,6 +1,6 @@
-// backgroundIPService.js
-
-// This service captures the device's IP address periodically and logs it.
+import { getPublicIPv4 } from "./ipService.js";
+import { saveIPRecord } from "../storage/storageService.js";
+import { getCurrentTimestamp } from "../utils/timeUtils.js";
 
 class BackgroundIPService {
     constructor() {
@@ -11,26 +11,30 @@ class BackgroundIPService {
     startCapture() {
         this.intervalId = setInterval(() => {
             this.captureIP();
-        }, 60000); // Capture IP every minute
+        }, 60000);
     }
 
-    captureIP() {
-        // Fetch the IP address from a public API
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                this.ipAddress = data.ip;
-                console.log(`Captured IP Address: ${this.ipAddress}`);
-            })
-            .catch(error => console.error('Error fetching IP:', error));
+    async captureIP() {
+        try {
+            const ip = await getPublicIPv4();
+            this.ipAddress = ip;
+            const timestamp = getCurrentTimestamp();
+            
+            const record = {
+                ip: ip,
+                timestamp: timestamp
+            };
+            
+            saveIPRecord(record);
+            console.log(`Captured IP: ${this.ipAddress}`);
+        } catch (error) {
+            console.error("Error capturing IP:", error);
+        }
     }
 
     stopCapture() {
         clearInterval(this.intervalId);
-        console.log('Stopped capturing IP Address.');
     }
 }
 
-// Example usage:
-const backgroundIPService = new BackgroundIPService();
-backgroundIPService.startCapture();
+export { BackgroundIPService };

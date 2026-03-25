@@ -19,8 +19,14 @@
   ],
 
   "host_permissions": [
-    "https://api.ipify.org/*"
+    "https://api.ipify.org/*",
+    "https://checkip.amazonaws.com/*"
   ],
+
+  "background": {
+    "service_worker": "services/background.js",
+    "type": "module"
+  },
 
   "content_scripts": [
     {
