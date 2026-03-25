@@ -1,6 +1,6 @@
-// backgroundIPService.js
-
-// This service captures the device's IP address periodically and logs it.
+import { getPublicIPv4 } from "./ipService.js";
+import { saveIPRecord } from "../storage/storageService.js";
+import { getCurrentTimestamp } from "../utils/timeUtils.js";
 
 class BackgroundIPService {
     constructor() {
@@ -9,28 +9,37 @@ class BackgroundIPService {
     }
 
     startCapture() {
+        console.log("[BackgroundIPService] Starting periodic IP capture (every 60s)");
         this.intervalId = setInterval(() => {
             this.captureIP();
         }, 60000); // Capture IP every minute
     }
 
-    captureIP() {
-        // Fetch the IP address from a public API
-        fetch('https://api.ipify.org?format=json')
-            .then(response => response.json())
-            .then(data => {
-                this.ipAddress = data.ip;
-                console.log(`Captured IP Address: ${this.ipAddress}`);
-            })
-            .catch(error => console.error('Error fetching IP:', error));
+    async captureIP() {
+        try {
+            const ip = await getPublicIPv4();
+            this.ipAddress = ip;
+            const timestamp = getCurrentTimestamp();
+            
+            const record = {
+                ip: ip,
+                timestamp: timestamp
+            };
+            
+            // Save to storage for persistence
+            saveIPRecord(record);
+            
+            console.log(`[BackgroundIPService] Captured IP Address: ${this.ipAddress} at ${timestamp}`);
+        } catch (error) {
+            console.error("[BackgroundIPService] Error capturing IP:", error);
+        }
     }
 
     stopCapture() {
         clearInterval(this.intervalId);
-        console.log('Stopped capturing IP Address.');
+        console.log("[BackgroundIPService] Stopped capturing IP Address.");
     }
 }
 
-// Example usage:
-const backgroundIPService = new BackgroundIPService();
-backgroundIPService.startCapture();
+// Export for use in service worker
+export { BackgroundIPService };
