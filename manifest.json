@@ -24,7 +24,8 @@
   ],
 
   "background": {
-    "service_worker": "services/background.js"
+    "service_worker": "services/background.js",
+    "type": "module"
   },
 
   "content_scripts": [
