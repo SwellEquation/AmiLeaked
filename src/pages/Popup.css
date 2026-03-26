@@ -7,15 +7,18 @@ body {
   text-align: center;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 h1 {
   font-size: 20px;
-  margin-bottom: 20px;
 }
 
 button {
-  width: 100%;
   padding: 12px;
-  font-size: 14px;
   background: #3b82f6;
   color: white;
   border: none;
@@ -27,13 +30,8 @@ button:hover {
   background: #2563eb;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-#result {
-  margin-top: 15px;
+.result {
+  margin-top: 10px;
   font-size: 13px;
+  text-align: left;
 }

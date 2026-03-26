@@ -11,7 +11,7 @@ class BackgroundIPService {
     startCapture() {
         this.intervalId = setInterval(() => {
             this.captureIP();
-        }, 60000);
+        }, 60);
     }
 
     async captureIP() {
