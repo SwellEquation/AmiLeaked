@@ -1,5 +1,4 @@
-export function getBrowserFingerprint() 
-{
+export function getBrowserFingerprint() {
   return {
     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
     language: navigator.language || navigator.userLanguage,
