@@ -22,7 +22,7 @@
     "https://api.ipify.org/*",
     "https://checkip.amazonaws.com/*",
     "https://api6.ipify.org/*",
-    "https://cloudflare-dns.com/*"
+    "https://dns.google/*"
   ],
   "background": {
     "{{chrome}}.service_worker": "src/background.js",

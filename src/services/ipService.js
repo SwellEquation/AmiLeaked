@@ -39,14 +39,17 @@ export async function getPublicIPv6() {
 export async function getDNSServers() {
     try {
         const response = await fetch(
-            "https://cloudflare-dns.com/dns-query?name=whoami.cloudflare&type=TXT",
-            { headers: { Accept: "application/dns-json" } }
+            "https://dns.google/resolve?name=whoami.ds.akahelp.net&type=TXT"
         );
         const data = await response.json();
-        const resolverIPs = (data.Answer || [])
-            .filter((r) => r.type === 16)
-            .map((r) => r.data.replace(/"/g, "").trim());
-        return resolverIPs.length > 0 ? resolverIPs : null;
+        
+        // Extract IP from Comment field e.g. "Response from 193.108.91.133."
+        if (data.Comment) {
+            const match = data.Comment.match(/from ([^\s]+)\./);
+            if (match) return [match[1]];
+        }
+        
+        return null;
     } catch (error) {
         console.error("DNS capture failed.", error);
         return null;
