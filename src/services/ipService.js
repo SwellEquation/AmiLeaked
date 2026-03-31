@@ -22,21 +22,3 @@ export async function getPublicIPv4() {
         }
     }
 }
-export async function getIPGeoInfo(ip) {
-  try {
-    const response = await fetch(`https://ipapi.co/${ip}/json/`);
-    if (!response.ok) throw new Error("IP geo API failed");
-    const data = await response.json();
-    
-    return {
-      country: data.country_name,
-      country_code: data.country_code,
-      region: data.region,
-      city: data.city,
-      ipTimezone: data.timezone,  // e.g. "America/New_York"
-    };
-  } catch (error) {
-    console.error("IP geo fetch failed:", error);
-    return { ipTimezone: "unknown" };
-  }
-}
