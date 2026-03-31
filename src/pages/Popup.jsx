@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
-import { getPublicIPv4, getIPGeoInfo } from "../services/ipService";
+import { getPublicIPv4 } from "../services/ipService";
 import { saveIPRecord, getLastCapturedIP } from "../storage/storageService";
 import { getCurrentTimestamp } from "../utils/timeUtils";
-import { getBrowserFingerprint } from "../utils/fingerprintUtils";
-import { evaluateVPNLikelihood } from "../utils/vpnUtils";
 import "./Popup.css";
 
 export default function Popup() {
@@ -12,58 +10,45 @@ export default function Popup() {
   useEffect(() => {
     getLastCapturedIP((record) => {
       if (record) {
-        const vpnStatus = record.vpnLikely ? "🟡 LIKELY VPN" : "✅ No VPN likely";
         setResult(
-          `IP: ${record.ip}
-Time: ${record.timestamp}
-Browser TZ: ${record.browserFingerprint?.timezone || 'N/A'}
-IP TZ: ${record.ipGeo?.ipTimezone || 'N/A'}
-Status: ${vpnStatus}`
+          `Last Captured IPv4: ${record.ip}\nTimestamp: ${record.timestamp}`
         );
       } else {
-        setResult("No capture yet. Click button to check.");
+        setResult("No IPv4 captured yet.");
       }
     });
   }, []);
 
   const handleCapture = async () => {
-    setResult("Checking VPN status...");
+    setResult("Capturing...");
+
     try {
       const ip = await getPublicIPv4();
-      const ipGeo = await getIPGeoInfo(ip);
-      const browserFp = getBrowserFingerprint();
-      const vpnInfo = evaluateVPNLikelihood(browserFp, ipGeo);
+      const timestamp = getCurrentTimestamp();
 
-      const record = {
-        ip,
-        timestamp: getCurrentTimestamp(),
-        browserFingerprint: browserFp,
-        ipGeo,
-        vpnLikely: vpnInfo.vpnLikely,
-        vpnConfidence: vpnInfo.confidence,
-        vpnMismatches: vpnInfo.mismatches,
-      };
+      const record = { ip, timestamp };
       saveIPRecord(record);
 
-      const status = vpnInfo.vpnLikely ? "🟡 LIKELY VPN" : "✅ No VPN likely";
-      setResult(
-        `IP: ${ip}
-Browser TZ: ${browserFp.timezone}
-IP TZ: ${ipGeo.ipTimezone}
-Status: ${status}
-Reasons: ${vpnInfo.mismatches.join(", ") || "None"}`
-      );
+      setResult(`IPv4: ${ip}\nCaptured: ${timestamp}`);
     } catch (error) {
       console.error(error);
-      setResult("Error checking VPN status.");
+      setResult("Error capturing IP.");
     }
   };
 
   return (
     <div className="container">
       <h1>AmiLeaked</h1>
-      <button onClick={handleCapture}>Check IP & VPN Status</button>
-      <pre className="result">{result}</pre>
+
+      <button onClick={handleCapture}>
+        Capture IPv4 Address
+      </button>
+
+      <div className="result">
+        {result.split("\n").map((line, i) => (
+          <div key={i}>{line}</div>
+        ))}
+      </div>
     </div>
   );
 }
