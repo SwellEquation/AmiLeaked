@@ -74,9 +74,11 @@
 }
 
 .power {
-  width: 64px;
-  height: 64px;
-  font-size: 28px;
+  width: 80px;
+  height: 80px;
+  font-size: 38px;
+  line-height: 1;
+  padding-top: 2px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
