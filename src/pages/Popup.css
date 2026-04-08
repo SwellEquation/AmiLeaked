@@ -30,6 +30,34 @@ button:hover {
   background: #2563eb;
 }
 
+.quick-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.quick-settings label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.interval-control input {
+  width: 100%;
+  max-width: 120px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.status-message {
+  color: #065f46;
+  font-size: 12px;
+  text-align: left;
+}
+
 .result {
   margin-top: 10px;
   font-size: 13px;
