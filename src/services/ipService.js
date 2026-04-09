@@ -31,7 +31,7 @@ export async function getPublicIPv6() {
         const data = await response.json();
         return data.ip;
     } catch (error) {
-        console.warn("IPv6 not available on this network.", error);
+        // IPv6 not available on this network — silently return null
         return null;
     }
 }

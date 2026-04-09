@@ -132,6 +132,36 @@
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
+.quick-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.quick-settings label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+.interval-control input {
+  width: 100%;
+  max-width: 120px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+}
+
+.status-message {
+  color: #065f46;
+  font-size: 12px;
+  text-align: left;
+}
+
+.result {
+  margin-top: 10px;
 .light .card {
   background: #fff;
   border: 1px solid #e2e8f0;
