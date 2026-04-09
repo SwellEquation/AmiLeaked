@@ -1,33 +1,135 @@
-body {
-  margin: 0;
-  padding: 15px;
-  font-family: system-ui, sans-serif;
-  min-width: 240px;
-  width: 260px;
+/* ── Container ── */
+.container {
+  width: 340px;
+  padding: 14px 20px 16px;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* ── Theme ── */
+.dark {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.light {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.header h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
   text-align: center;
 }
 
-.container {
+.icons {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.icons button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.15s;
+}
+
+.dark .icons button:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.light .icons button:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* ── Main / Power Button ── */
+.main {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
 }
 
-h1 {
-  font-size: 20px;
-}
-
-button {
-  padding: 12px;
-  background: #3b82f6;
-  color: white;
+.power {
+  width: 80px;
+  height: 80px;
+  font-size: 38px;
+  line-height: 1;
+  padding-top: 2px;
   border: none;
-  border-radius: 6px;
+  border-radius: 50%;
   cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-button:hover {
+.dark .power {
+  background: #3b82f6;
+  color: #fff;
+  box-shadow: 0 0 24px rgba(59, 130, 246, 0.35);
+}
+
+.dark .power:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 32px rgba(59, 130, 246, 0.5);
+}
+
+.light .power {
   background: #2563eb;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(37, 99, 235, 0.25);
+}
+
+.light .power:hover {
+  transform: scale(1.06);
+  box-shadow: 0 4px 20px rgba(37, 99, 235, 0.35);
+}
+
+.power:active {
+  transform: scale(0.96);
+}
+
+.main h2 {
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* ── Cards ── */
+.card {
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-top: 8px;
+}
+
+.dark .card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .quick-settings {
@@ -60,6 +162,118 @@ button:hover {
 
 .result {
   margin-top: 10px;
+.light .card {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.card h3 {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.5;
+  margin-bottom: 6px;
+}
+
+/* ── Settings Labels / Toggles ── */
+label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+label + label {
+  border-top: 1px solid rgba(128, 128, 128, 0.1);
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.dark input[type="checkbox"] {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.light input[type="checkbox"] {
+  background: #cbd5e1;
+}
+
+input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 0.2s;
+}
+
+input[type="checkbox"]:checked {
+  background: #3b82f6;
+}
+
+input[type="checkbox"]:checked::after {
+  transform: translateX(16px);
+}
+
+/* ── Background Scan Button ── */
+.card button {
+  width: 100%;
+  padding: 8px;
+  margin-top: 8px;
   font-size: 13px;
-  text-align: left;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.dark .card button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}
+
+.dark .card button:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.light .card button {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.light .card button:hover {
+  background: #cbd5e1;
+}
+
+.card button:active {
+  transform: scale(0.98);
+}
+
+/* ── Scan Data Text ── */
+.card p {
+  font-size: 12px;
+  padding: 3px 0;
+  opacity: 0.85;
+  word-break: break-all;
+}
+
+.card p + p {
+  border-top: 1px solid rgba(128, 128, 128, 0.08);
 }

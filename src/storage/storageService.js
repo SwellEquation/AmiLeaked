@@ -30,3 +30,12 @@ export function getBackgroundScanSettings(callback) {
         }
     );
 }
+export function getData(callback) {
+    chrome.storage.session.get(["amiData"], (res) => {
+        callback(res.amiData || null);
+    });
+}
+
+export function saveData(data) {
+    chrome.storage.session.set({ amiData: data });
+}
