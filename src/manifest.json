@@ -17,7 +17,7 @@
   "{{firefox}}.browser_action": {
     "default_popup": "src/popup.html"
   },
-  "permissions": ["storage", "alarms"],
+  "permissions": ["storage"],
   "host_permissions": [
     "https://api.ipify.org/*",
     "https://checkip.amazonaws.com/*",
