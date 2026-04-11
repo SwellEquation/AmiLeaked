@@ -1,3 +1,5 @@
+// ── IP History (local, persistent) ──
+
 export function saveIPRecord(record) {
     chrome.storage.local.get(["ipHistory"], function(result) {
         let history = result.ipHistory || [];
@@ -9,12 +11,47 @@ export function saveIPRecord(record) {
     });
 }
 
-
 export function getLastCapturedIP(callback) {
     chrome.storage.local.get(["lastCapturedIP"], function(result) {
         callback(result.lastCapturedIP || null);
     });
 }
+
+// ── Baseline (local, persistent) ──
+
+export function saveBaseline(baseline) {
+    chrome.storage.local.set({ baseline });
+}
+
+export function getBaseline(callback) {
+    chrome.storage.local.get(["baseline"], (res) => {
+        callback(res.baseline || null);
+    });
+}
+
+// ── Settings (local, persistent) ──
+
+const DEFAULT_SETTINGS = {
+    autoCapture: false,
+    notifications: true,
+    hideSensitive: true,
+    darkMode: true,
+    backgroundScan: false,
+    notifyMode: "both", // "badge" | "os" | "both"
+    initialized: false
+};
+
+export function saveSettings(settings) {
+    chrome.storage.local.set({ settings });
+}
+
+export function getSettings(callback) {
+    chrome.storage.local.get(["settings"], (res) => {
+        callback(res.settings || { ...DEFAULT_SETTINGS });
+    });
+}
+
+// ── Transient scan data (session, cleared on browser restart) ──
 
 export function getData(callback) {
     chrome.storage.session.get(["amiData"], (res) => {

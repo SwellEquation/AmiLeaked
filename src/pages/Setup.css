@@ -1,0 +1,174 @@
+/* ── Setup Page ── */
+.setup-page {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.setup-page h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+}
+
+.setup-subtitle {
+  font-size: 12px;
+  opacity: 0.5;
+  margin-top: 2px;
+  margin-bottom: 16px;
+}
+
+.setup-section {
+  text-align: left;
+}
+
+.setup-card {
+  border-radius: 12px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.step-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+  margin-bottom: 8px;
+}
+
+.step-badge.success {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.setup-card h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.setup-card > p {
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.75;
+}
+
+/* ── Vector List ── */
+.vector-list {
+  margin-top: 12px;
+}
+
+.vector-list-title {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  opacity: 0.4;
+  margin-bottom: 6px;
+}
+
+.vector-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  font-size: 12px;
+}
+
+.vector-item + .vector-item {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.vector-dot {
+  color: #3b82f6;
+  font-size: 8px;
+}
+
+.vector-spinner {
+  display: inline-block;
+  font-size: 14px;
+  color: #60a5fa;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.vector-status {
+  font-size: 13px;
+  font-weight: 700;
+  width: 16px;
+  text-align: center;
+}
+
+.vector-status.ok {
+  color: #4ade80;
+}
+
+.vector-status.na {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+/* ── Confirm Checkbox ── */
+.confirm-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.confirm-label input[type="checkbox"] {
+  flex-shrink: 0;
+}
+
+/* ── Setup Button ── */
+.setup-btn {
+  width: 100%;
+  padding: 10px;
+  margin-top: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #3b82f6;
+  color: #fff;
+  transition: background 0.15s, transform 0.1s, opacity 0.15s;
+}
+
+.setup-btn:hover {
+  background: #2563eb;
+}
+
+.setup-btn:active {
+  transform: scale(0.98);
+}
+
+.setup-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* ── Next Step Info ── */
+.next-step-info {
+  margin-top: 12px;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(34, 197, 94, 0.08);
+  border: 1px solid rgba(34, 197, 94, 0.15);
+}
+
+.next-step-info p {
+  font-size: 12px;
+  line-height: 1.5;
+  color: #4ade80;
+}
