@@ -10,23 +10,23 @@
 
 ## Features
 
-- **Multi-vector leak detection**: Checks IPv4, IPv6, DNS, and WebRTC simultaneously
-- **Background monitoring**: Periodic scans with configurable notifications (badge icon, OS notifications, or both)
-- **WebRTC leak detection**: Uses STUN servers to discover public and local IPs exposed via `RTCPeerConnection`
-- **DNS leak detection**: Queries Google DNS to identify your resolver IP
-- **Dual IPv4 sources**: Primary fetch via [ipify](https://api.ipify.org), automatic fallback to [AWS checkip](https://checkip.amazonaws.com)
-- **First-time setup wizard**: Guided baseline capture with confirmation steps
-- **Re-capture baseline**: Update your fingerprint anytime from the Settings page
-- **Dark / Light theme**: Toggle between themes
-- **Hide sensitive info**: Mask IP address information in the popup UI
-- **Cross-browser support**: Manifest V3 (Chrome) and Manifest V2 (Firefox) via `vite-plugin-web-extension`
+- **Multi-vector leak detection** - Checks IPv4, IPv6, DNS, and WebRTC simultaneously
+- **Background monitoring** - Periodic scans with configurable notifications (badge icon, OS notifications, or both)
+- **WebRTC leak detection** - Uses STUN servers to discover public and local IPs exposed via `RTCPeerConnection`
+- **DNS leak detection** - Queries Google DNS to identify your resolver IP
+- **Dual IPv4 sources** - Primary fetch via [ipify](https://api.ipify.org), automatic fallback to [AWS checkip](https://checkip.amazonaws.com)
+- **First-time setup wizard** - Guided baseline capture with confirmation steps
+- **Re-capture baseline** - Update your fingerprint anytime from the Settings page
+- **Dark / Light theme** - Toggle between themes
+- **Hide sensitive info** - Mask IP address information in the popup UI
+- **Cross-browser support** - Manifest V3 (Chrome) and Manifest V2 (Firefox) via `vite-plugin-web-extension`
 
 ## Tech Stack
 
-- **React 18** + **React Router**: Popup UI and page navigation
-- **Vite** + **vite-plugin-web-extension**: Build tooling with hot reload
-- **Chrome Extension APIs**: `chrome.storage`, `chrome.notifications`, `chrome.action`
-- **WebRTC**: `RTCPeerConnection` for local/public IP discovery
+- **React 18** + **React Router** - Popup UI and page navigation
+- **Vite** + **vite-plugin-web-extension** - Build tooling with hot reload
+- **Chrome Extension APIs** - `chrome.storage`, `chrome.notifications`, `chrome.action`
+- **WebRTC** - `RTCPeerConnection` for local/public IP discovery
 
 ## Project Structure
 
@@ -85,9 +85,9 @@ npm run dev
 
 ## Usage
 
-1. **Setup**: Disconnect your VPN, open the extension, and complete the baseline capture.
-2. **Scan**: Reconnect your VPN, then press the power button to check for leaks.
-3. **Background mode**: Enable background detection for continuous monitoring with notifications.
+1. **Setup** - Disconnect your VPN, open the extension, and complete the baseline capture.
+2. **Scan** - Reconnect your VPN, then press the power button to check for leaks.
+3. **Background mode** - Enable background detection for continuous monitoring with notifications.
 
 ## License
 
