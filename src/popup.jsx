@@ -23,7 +23,7 @@ function App() {
   return (
     <HashRouter>
       <Routes>
-        <Route path="/setup" element={<Setup />} />
+        <Route path="/setup" element={<Setup onComplete={() => setHasBaseline(true)} />} />
         <Route path="/settings" element={<Settings />} />
         <Route
           path="/"

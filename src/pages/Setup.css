@@ -127,9 +127,6 @@
 }
 
 .confirm-label input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  border-radius: 4px;
   flex-shrink: 0;
 }
 

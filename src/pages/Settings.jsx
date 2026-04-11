@@ -30,8 +30,10 @@ export default function Settings() {
 
   if (!settings) return <div className="container dark">Loading…</div>;
 
+  const themeClass = settings.darkMode ? "dark" : "light";
+
   return (
-    <div className="container dark">
+    <div className={`container ${themeClass}`}>
       <div className="settings-header">
         <button className="back-btn" onClick={() => navigate("/")}>←</button>
         <h1>Settings</h1>

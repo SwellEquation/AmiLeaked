@@ -5,7 +5,7 @@ import { getWebRTCIPs } from "../services/webrtcService";
 import { saveBaseline, saveSettings, getSettings } from "../storage/storageService";
 import "./Setup.css";
 
-export default function Setup() {
+export default function Setup({ onComplete }) {
 
   const navigate = useNavigate();
   const [step, setStep] = useState(1); // 1 = confirm VPN off, 2 = capturing, 3 = done
@@ -44,6 +44,7 @@ export default function Setup() {
   };
 
   const finish = () => {
+    if (onComplete) onComplete();
     navigate("/");
   };
 
