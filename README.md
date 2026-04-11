@@ -1,6 +1,6 @@
 # AmiLeaked
 
-**AmiLeaked** is a browser extension that detects network leaks while you're connected to a VPN. It captures your real network fingerprint as a baseline, then continuously monitors for IPv4, IPv6, DNS, and WebRTC leaks that could expose your true identity.
+**AmiLeaked** is a browser extension that detects network leaks in an active VPN connection. It captures your real network fingerprint as a baseline, then continuously monitors for IPv4, IPv6, DNS, and WebRTC leaks that could expose your true identity. No data is sent to a 3rd party service or verifier, all processing is done locally. 
 
 ## How It Works
 
@@ -32,20 +32,20 @@
 
 ```
 src/
-├── background.js                # Service worker / background script entry
-├── manifest.json                # Extension manifest (Chrome + Firefox templates)
-├── popup.html / popup.jsx       # Extension popup entry point
+├── background.js                # Service worker and background script worker
+├── manifest.json                # Extension manifest (Contains Chrome and Firefox templates)
+├── popup.html / popup.jsx       # Initial popup html and jsx file
 ├── pages/
-│   ├── Popup.jsx                # Main scan UI with leak detection
-│   ├── Settings.jsx             # Settings page (theme, notifications, baseline)
-│   └── Setup.jsx                # First-time baseline capture wizard
+│   ├── Popup.jsx                # Main script file for leak detection behavior and other services
+│   ├── Settings.jsx             # Settings page (theme, notifications, re-capture baseline)
+│   └── Setup.jsx                # First-time baseline capture set-up
 ├── services/
 │   ├── ipService.js             # Public IPv4/IPv6 and DNS resolver fetching
-│   ├── webrtcService.js         # WebRTC IP discovery via STUN
+│   ├── webrtcService.js         # WebRTC IP fetching via STUN
 │   ├── backgroundIPService.js   # Periodic background scan service
-│   └── notificationService.js   # Badge and OS notification alerts
+│   └── notificationService.js   # Badge and OS notification alerts for detected leaks
 ├── storage/
-│   └── storageService.js        # chrome.storage abstraction (baseline, settings, history)
+│   └── storageService.js        # Persistent storage for baseline and settings
 ├── content_scripts/
 │   └── content.js               # Content script (injected into pages)
 └── utils/
