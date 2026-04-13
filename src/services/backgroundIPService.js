@@ -1,6 +1,6 @@
 import { getPublicIPv4, getPublicIPv6, getDNSServers } from "./ipService.js";
 import { getWebRTCIPs } from "./webrtcService.js";
-import { saveIPRecord, getBaseline, getSettings } from "../storage/storageService.js";
+import { saveIPRecord, getBaseline, getSettings, saveData } from "../storage/storageService.js";
 import { alertLeaks, clearAlerts } from "./notificationService.js";
 import { getCurrentTimestamp } from "../utils/timeUtils.js";
 
@@ -35,14 +35,33 @@ class BackgroundIPService {
         this.webrtcIPs = null;
         this.intervalId = null;
         this.lastLeaks = [];
+        this.intervalSeconds = 60;
+        this.nextScanTime = null;
     }
 
-    startCapture() {
-        // Capture immediately, then every 60 seconds
-        this.captureAll();
+    startCapture(intervalSeconds) {
+        if (intervalSeconds) this.intervalSeconds = intervalSeconds;
+        this._scheduleNext();
+    }
+
+    _scheduleNext() {
+        clearInterval(this.intervalId);
+        this.nextScanTime = Date.now() + this.intervalSeconds * 1000;
         this.intervalId = setInterval(() => {
             this.captureAll();
-        }, 60000);
+            this.nextScanTime = Date.now() + this.intervalSeconds * 1000;
+        }, this.intervalSeconds * 1000);
+    }
+
+    setInterval(seconds) {
+        this.intervalSeconds = seconds;
+        if (this.intervalId) {
+            this._scheduleNext();
+        }
+    }
+
+    getNextScanTime() {
+        return this.nextScanTime;
     }
 
     async captureAll() {
@@ -69,6 +88,7 @@ class BackgroundIPService {
             };
 
             saveIPRecord(record);
+            saveData({ current: record });
 
             // Compare against baseline
             getBaseline((baseline) => {

@@ -38,6 +38,7 @@ const DEFAULT_SETTINGS = {
     darkMode: true,
     backgroundScan: false,
     notifyMode: "both", // "badge" | "os" | "both"
+    scanInterval: 60,   // seconds: 10, 20, 30, 40, 50, 60
     initialized: false
 };
 

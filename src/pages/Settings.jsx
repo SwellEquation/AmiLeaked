@@ -39,29 +39,6 @@ export default function Settings() {
         <h1>Settings</h1>
       </div>
 
-      {/* General */}
-      <div className="card">
-        <h3>General</h3>
-
-        <label>
-          Auto capture on startup
-          <input type="checkbox" checked={settings.autoCapture}
-            onChange={() => toggle("autoCapture")} />
-        </label>
-
-        <label>
-          Hide sensitive info
-          <input type="checkbox" checked={settings.hideSensitive}
-            onChange={() => toggle("hideSensitive")} />
-        </label>
-
-        <label>
-          Dark mode
-          <input type="checkbox" checked={settings.darkMode}
-            onChange={() => toggle("darkMode")} />
-        </label>
-      </div>
-
       {/* Notifications */}
       <div className="card">
         <h3>Leak Notifications</h3>
