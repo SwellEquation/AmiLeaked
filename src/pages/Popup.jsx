@@ -220,7 +220,7 @@ export default function Home() {
           {loading
             ? "Scanning…"
             : !current
-              ? "VPN should be ON before scanning"
+              ? "Click the button above to run a scan. VPN should be ON before scanning."
               : hasLeaks
                 ? "Leaks detected"
                 : "No leaks detected"}
@@ -279,7 +279,7 @@ export default function Home() {
       <div className="card">
         <h3>Scan Results</h3>
 
-        {!current && <p className="no-data">Press the button above to scan</p>}
+        {!current && <p className="no-data">No results, try running a scan!</p>}
 
         {current && (
           <>

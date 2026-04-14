@@ -74,12 +74,12 @@ export default function Setup({ onComplete }) {
               <h3>Disconnect Your VPN</h3>
               <p>
                 To detect leaks, AmiLeaked needs to capture your <strong>real</strong> network
-                fingerprint first. This baseline will be compared against future scans
+                fingerprint first, which will serve as a baseline. This baseline will be compared against future captures
                 while your VPN is active.
               </p>
 
               <div className="vector-list">
-                <p className="vector-list-title">What we'll capture:</p>
+                <p className="vector-list-title">What will be captured:</p>
                 {vectors.map(v => (
                   <div key={v.key} className="vector-item">
                     <span className="vector-dot">●</span>
