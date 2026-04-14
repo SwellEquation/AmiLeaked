@@ -14,16 +14,16 @@ chrome.runtime.onInstalled.addListener((details) => {
 function initializeBackgroundCapture() {
     getSettings((settings) => {
         if (settings.backgroundScan) {
-            startService();
+            startService(settings.scanInterval || 60);
         }
     });
 }
 
-function startService() {
+function startService(intervalSeconds) {
     if (!backgroundIPService) {
         backgroundIPService = new BackgroundIPService();
     }
-    backgroundIPService.startCapture();
+    backgroundIPService.startCapture(intervalSeconds);
 }
 
 function stopService() {
@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
             break;
 
         case "START_BACKGROUND_SCAN":
-            startService();
+            startService(request.interval || 60);
             sendResponse({ ok: true });
             break;
 
@@ -54,6 +54,32 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         case "GET_LEAK_STATUS":
             sendResponse({
                 leaks: backgroundIPService ? backgroundIPService.getLastLeaks() : []
+            });
+            break;
+
+        case "GET_BACKGROUND_STATUS":
+            sendResponse({
+                leaks: backgroundIPService ? backgroundIPService.getLastLeaks() : [],
+                current: backgroundIPService ? {
+                    ip: backgroundIPService.ipAddress,
+                    ipv6: backgroundIPService.ipv6Address,
+                    dns: backgroundIPService.dnsServers,
+                    webrtc: backgroundIPService.webrtcIPs
+                } : null,
+                nextScanTime: backgroundIPService ? backgroundIPService.getNextScanTime() : null
+            });
+            break;
+
+        case "SET_SCAN_INTERVAL":
+            if (backgroundIPService) {
+                backgroundIPService.setInterval(request.interval);
+            }
+            sendResponse({ ok: true });
+            break;
+
+        case "GET_NEXT_SCAN":
+            sendResponse({
+                nextScanTime: backgroundIPService ? backgroundIPService.getNextScanTime() : null
             });
             break;
     }

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPublicIPv4, getPublicIPv6, getDNSServers } from "../services/ipService";
 import { getWebRTCIPs } from "../services/webrtcService";
-import { saveBaseline, saveSettings, getSettings } from "../storage/storageService";
+import { saveBaseline, saveSettings, getSettings, saveData } from "../storage/storageService";
 import "./Setup.css";
 
 export default function Setup({ onComplete }) {
@@ -33,6 +33,7 @@ export default function Setup({ onComplete }) {
 
     const baseline = { ip: ipv4, ipv6, dns, webrtc };
     saveBaseline(baseline);
+    saveData({ current: null });
 
     getSettings((settings) => {
       saveSettings({ ...settings, initialized: true });
