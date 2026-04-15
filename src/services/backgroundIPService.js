@@ -1,5 +1,5 @@
 import { getPublicIPv4, getPublicIPv6, getDNSServers } from "./ipService.js";
-import { getWebRTCIPs } from "./webrtcService.js";
+import { getWebRTCIPsForBackgroundScan } from "./webrtcBackgroundService.js";
 import { saveIPRecord, getBaseline, getSettings, saveData } from "../storage/storageService.js";
 import { alertLeaks, clearAlerts } from "./notificationService.js";
 import { getCurrentTimestamp } from "../utils/timeUtils.js";
@@ -70,7 +70,7 @@ class BackgroundIPService {
                 getPublicIPv4(),
                 getPublicIPv6(),
                 getDNSServers(),
-                getWebRTCIPs(),
+                getWebRTCIPsForBackgroundScan(),
             ]);
 
             this.ipAddress = ipv4;
@@ -100,7 +100,7 @@ class BackgroundIPService {
                 if (leaks.length > 0) {
                     getSettings((settings) => {
                         if (settings.notifications) {
-                            alertLeaks(leaks);
+                            alertLeaks(leaks, { fromBackgroundScan: true, settings });
                         }
                     });
                 } else {

@@ -8,6 +8,8 @@ import "./Popup.css";
 
 export default function Home() {
 
+  const showQuickSettingAutoStart = false;
+
   const navigate = useNavigate();
   const [baseline, setBaseline] = useState(null);
   const [current, setCurrent] = useState(null);
@@ -22,6 +24,18 @@ export default function Home() {
     getBaseline((b) => setBaseline(b));
     getSettings((s) => {
       setSettings(s);
+
+      // Auto-start background detection on startup after baseline setup
+      // when "Auto capture on startup" is enabled.
+      if (s?.autoCapture && s?.initialized && !s?.backgroundScan) {
+        const updated = { ...s, backgroundScan: true };
+        saveSettings(updated);
+        setSettings(updated);
+        chrome.runtime.sendMessage({
+          type: "START_BACKGROUND_SCAN",
+          interval: updated.scanInterval || 60
+        });
+      }
 
       // Only load existing scan data if background scan is actively running
       if (s?.backgroundScan) {
@@ -256,11 +270,13 @@ export default function Home() {
       <div className="card">
         <h3>Quick Settings</h3>
 
-        <label>
-          Auto capture on startup
-          <input type="checkbox" checked={settings.autoCapture}
-            onChange={() => toggleSetting("autoCapture")} />
-        </label>
+        {showQuickSettingAutoStart && (
+          <label>
+            Auto-start detection on startup
+            <input type="checkbox" checked={settings.autoCapture}
+              onChange={() => toggleSetting("autoCapture")} />
+          </label>
+        )}
 
         <label>
           Hide sensitive info

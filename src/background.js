@@ -1,5 +1,6 @@
 import { BackgroundIPService } from "./services/backgroundIPService.js";
-import { getSettings } from "./storage/storageService.js";
+import { getSettings, saveSettings } from "./storage/storageService.js";
+import { clearAlerts } from "./services/notificationService.js";
 
 let backgroundIPService = null;
 
@@ -13,9 +14,24 @@ chrome.runtime.onInstalled.addListener((details) => {
 
 function initializeBackgroundCapture() {
     getSettings((settings) => {
-        if (settings.backgroundScan) {
-            startService(settings.scanInterval || 60);
+        // Background detection should NOT persist across browser restarts.
+        // If it was enabled last session, reset the setting on startup.
+        if (settings?.backgroundScan) {
+            saveSettings({ ...settings, backgroundScan: false });
+            clearAlerts();
         }
+
+        // Only auto-start when the explicit auto-start setting is enabled.
+        const shouldAutoStart = Boolean(settings?.autoCapture) && Boolean(settings?.initialized);
+
+        if (!shouldAutoStart) return;
+
+        // Ensure the UI state matches the actual running service when auto-starting.
+        if (!settings.backgroundScan) {
+            saveSettings({ ...settings, backgroundScan: true });
+        }
+
+        startService(settings.scanInterval || 60);
     });
 }
 

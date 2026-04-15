@@ -37,7 +37,7 @@ const DEFAULT_SETTINGS = {
     hideSensitive: true,
     darkMode: true,
     backgroundScan: false,
-    notifyMode: "both", // "badge" | "os" | "both"
+    notifyMode: "badge", // "badge" | "os" | "both"
     scanInterval: 60,   // seconds: 10, 20, 30, 40, 50, 60
     initialized: false
 };
@@ -48,7 +48,7 @@ export function saveSettings(settings) {
 
 export function getSettings(callback) {
     chrome.storage.local.get(["settings"], (res) => {
-        callback(res.settings || { ...DEFAULT_SETTINGS });
+        callback({ ...DEFAULT_SETTINGS, ...(res.settings || {}) });
     });
 }
 

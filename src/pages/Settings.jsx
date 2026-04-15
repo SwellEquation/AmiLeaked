@@ -7,13 +7,34 @@ export default function Settings() {
 
   const navigate = useNavigate();
   const [settings, setSettings] = useState(null);
+  const showNotificationModes = false;
 
   useEffect(() => {
-    getSettings((s) => setSettings(s));
+    getSettings((s) => {
+      // Migrate legacy modes now that the UI is badge-only.
+      if (s?.notifications && s.notifyMode !== "badge") {
+        const updated = { ...s, notifyMode: "badge" };
+        saveSettings(updated);
+        setSettings(updated);
+        return;
+      }
+      setSettings(s);
+    });
   }, []);
 
   const toggle = (key) => {
     const updated = { ...settings, [key]: !settings[key] };
+    saveSettings(updated);
+    setSettings(updated);
+  };
+
+  const toggleBadgeNotifications = () => {
+    const enabled = !settings.notifications;
+    const updated = {
+      ...settings,
+      notifications: enabled,
+      notifyMode: "badge"
+    };
     saveSettings(updated);
     setSettings(updated);
   };
@@ -44,12 +65,15 @@ export default function Settings() {
         <h3>Leak Notifications</h3>
 
         <label>
-          Enable notifications
-          <input type="checkbox" checked={settings.notifications}
-            onChange={() => toggle("notifications")} />
+          Enable badge notifications
+          <input
+            type="checkbox"
+            checked={settings.notifications}
+            onChange={toggleBadgeNotifications}
+          />
         </label>
 
-        {settings.notifications && (
+        {showNotificationModes && settings.notifications && (
           <div className="notify-modes">
             {[
               { value: "badge", label: "Badge only" },
