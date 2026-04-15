@@ -8,7 +8,7 @@ Other VPN leak detectors on the internet are based on one-off tests that the use
 
 ## Our solution
 
-AmiLeaked aims to be what most other leak detectors aren't. The baseline system ensures absolute certainty that your detected IP's are different or the same as your initial ones, and the background detection feature allows for periodic scanning, giving the user peace of mind while they use their VPN when browsing. There's also a dedicated scan button for one time tests, offering absolute control for leak detection and IP monitoring. 
+AmiLeaked aims to be what most other leak detectors aren't. The baseline system ensures absolute certainty that your detected IP's are different or the same as your initial ones, and the background detection feature allows for periodic scanning, giving the user peace of mind while they use their VPN when browsing. There's also a dedicated scan button for one-time tests, offering absolute control for leak detection and IP monitoring. 
 
 ## How It Works
 
