@@ -2,7 +2,7 @@
   "{{chrome}}.manifest_version": 3,
   "{{firefox}}.manifest_version": 2,
   "name": "AmiLeaked",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Network leak detector that runs in the background while you browse",
   "icons": {
     "16": "icon/16.png",
