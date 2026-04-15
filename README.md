@@ -2,11 +2,11 @@
 
 **AmiLeaked** is a browser extension that detects network leaks in an active VPN connection. It captures your real network fingerprint as a baseline, then continuously monitors for IPv4, IPv6, DNS, and WebRTC leaks that could expose your true identity. No data is sent to a 3rd party service or verifier, all processing is done locally. 
 
-# The problem
+## The problem
 
 Other VPN leak detectors on the internet are based on one-off tests that the user must manually conduct, and they usually do not use a baseline as a reference, meaning leaks can't be reliably determined. This leaves them without a way to easily check their leak status without resorting to advanced methods. 
 
-# Our solution
+## Our solution
 
 AmiLeaked aims to be what most other leak detectors aren't. The baseline system ensures absolute certainty that your detected IP's are different or the same as your initial ones, and the background detection feature allows for periodic scanning, giving the user peace of mind while they use their VPN when browsing. There's also a dedicated scan button for one time tests, offering absolute control for leak detection and IP monitoring. 
 
