@@ -27,7 +27,7 @@ AmiLeaked aims to be what most other leak detectors aren't. The baseline system 
 - **Re-capture baseline** - Update your fingerprint anytime from the Settings page
 - **Dark / Light theme** - Toggle between themes
 - **Hide sensitive info** - Mask IP address information in the popup UI
-- **Cross-browser support** - Manifest V3 (Chrome) and Manifest V2 (Firefox) via `vite-plugin-web-extension`
+- **Full Chrome Support** - Manifest V3 via `vite-plugin-web-extension`
 
 ## Tech Stack
 
@@ -41,7 +41,7 @@ AmiLeaked aims to be what most other leak detectors aren't. The baseline system 
 ```
 src/
 ├── background.js                   # Service worker and background script worker
-├── manifest.json                   # Extension manifest (Contains Chrome and Firefox templates)
+├── manifest.json                   # Extension manifest (Contains Chrome template)
 ├── popup.html / popup.jsx          # Initial popup html and jsx file
 ├── offscreen.html                  # Loads an offscreen JavaScript module for offscreen.js
 ├── offscreen.js                    # Establishes the WebRTC service as an offscreen service
@@ -88,11 +88,6 @@ npm run dev
 1. Navigate to `chrome://extensions`
 2. Enable **Developer mode**
 3. Click **Load unpacked** and select the dist folder
-
-### Load in Firefox
-
-1. Navigate to `about:debugging#/runtime/this-firefox`
-2. Click **Load Temporary Add-on** and select manifest.json
 
 ## Usage
 
