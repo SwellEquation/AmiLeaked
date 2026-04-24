@@ -43,8 +43,8 @@ src/
 ├── background.js                   # Service worker and background script worker
 ├── manifest.json                   # Extension manifest (Contains Chrome and Firefox templates)
 ├── popup.html / popup.jsx          # Initial popup html and jsx file
-├── offscreen.html                  # Loads an offscreen JavaScript module for the WebRTC background service
-├── offscreen.js                    # Minimal JavaScript file for fetching WebRTC IPs from the background service
+├── offscreen.html                  # Loads an offscreen JavaScript module for offscreen.js
+├── offscreen.js                    # Establishes the WebRTC service as an offscreen service
 ├── pages/
 │   ├── Popup.jsx                   # Main script file for leak detection behavior and other services
 │   ├── Settings.jsx                # Settings page (theme, notifications, re-capture baseline)
